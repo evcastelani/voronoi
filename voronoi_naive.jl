@@ -83,3 +83,38 @@ function voronoi(P::Vector{Point2D},metric=(A::Point2D,B::Point2D)->sqrt((B.x-A.
 	draw_border(border,plt) 
 	draw_points(P,plt) 
 end
+
+function voronoi2(P::Vector{Point2D},metric=(A::Point2D,B::Point2D)->sqrt((B.x-A.x)^2+(B.y-A.y)^2);limx=[0,100],limy=[0,100],density=1000)
+	px = [limx[1]:(limx[2]-limx[1])/density:limx[2];]
+	py = [limx[1]:(limy[2]-limy[1])/density:limy[2];]
+	npx = length(px)
+	npy = length(py)
+	n = length(P)
+	points = Vector{Point2D}(undef, npx * npy)
+	border = Point2D[]
+	labels = zeros(Int64, npx * npy)
+	
+	for i=1:npx 
+		for j=1:npy 
+			curr_p = Point2D(px[i],py[j])
+			m = map(p -> metric(p, curr_p), P)
+			minval, imin = findmin(m)
+
+			m[imin] = Inf
+			secval, _ = findmin(m)
+
+			if abs(secval - minval)/density<1.0e-4
+				push!(border, curr_p)
+			end 
+			points[(i - 1) * npy + j] = curr_p
+			labels[(i - 1) * npy + j] = imin
+			
+		end
+		
+	end
+	plt = plot()
+	println("Drawing ... ")
+	draw_colored_points(points,labels,plt)
+	draw_border(border,plt) 
+	draw_points(P,plt) 
+end
