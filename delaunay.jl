@@ -9,6 +9,7 @@ struct Edge
     B::Point2D 
 end
 
+
 # geração de pontos no plano
 function generate_points(n::Int;limit=[0,100])
     x = rand([limit[1]:1:limit[2];],n)
@@ -130,7 +131,7 @@ function delaunay(v::Vector{Point2D})
             end
         end 
         if iminleft > 0 
-            # display(Triangle(currentedge.A,currentedge.B,v[iminleft]))
+           # display(Triangle(currentedge.A,currentedge.B,v[iminleft]))
             candidate_edge1 = Edge(currentedge.A,v[iminleft])
             candidate_edge2 = Edge(v[iminleft],currentedge.A)
             isnewpoint = false 
