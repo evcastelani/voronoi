@@ -48,7 +48,7 @@ Obs. Notei que a densidade deve ser alta para termos um resultados razóavel ao 
 """
 function voronoi(P::Vector{Point2D},metric=(A::Point2D,B::Point2D)->sqrt((B.x-A.x)^2+(B.y-A.y)^2);limx=[0,100],limy=[0,100],density=1000)
 	px = [limx[1]:(limx[2]-limx[1])/density:limx[2];]
-	py = [limx[1]:(limy[2]-limy[1])/density:limy[2];]
+	py = [limy[1]:(limy[2]-limy[1])/density:limy[2];]
 	npx = length(px)
 	npy = length(py)
 	n = length(P)
@@ -86,7 +86,7 @@ end
 
 function voronoi2(P::Vector{Point2D},metric=(A::Point2D,B::Point2D)->sqrt((B.x-A.x)^2+(B.y-A.y)^2);limx=[0,100],limy=[0,100],density=1000)
 	px = [limx[1]:(limx[2]-limx[1])/density:limx[2];]
-	py = [limx[1]:(limy[2]-limy[1])/density:limy[2];]
+	py = [limy[1]:(limy[2]-limy[1])/density:limy[2];]
 	npx = length(px)
 	npy = length(py)
 	n = length(P)
